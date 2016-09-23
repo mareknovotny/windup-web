@@ -36,6 +36,8 @@ import {TechnologyComponent} from "./components/technology.component";
 import {RulesModalComponent} from "./components/rules-modal.component";
 import {AddRulesPathModalComponent} from "./components/add-rules-path-modal.component";
 import {ConfirmationModalComponent} from "./components/confirmation-modal.component";
+import {CustomRuleSelectionComponent} from "./components/custom-rule-selection.component";
+
 import {KeycloakService} from "./services/keycloak.service";
 import {WindupHttpService} from "./services/windup.http.service";
 import {EditApplicationFormComponent} from "./components/edit-application-form.component";
@@ -66,9 +68,9 @@ import {EditApplicationFormComponent} from "./components/edit-application-form.c
         ProgressBarComponent,
         RulesModalComponent,
         TechnologyComponent,
-        
         FileSelectDirective,
         FileDropDirective
+        CustomRuleSelectionComponent
     ],
     providers: [
         appRoutingProviders,

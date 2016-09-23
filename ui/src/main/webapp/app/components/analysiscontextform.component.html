@@ -74,11 +74,13 @@
                 </div>
             </div>
         </div>
+        <custom-rule-selection></custom-rule-selection>
         <div class="form-group">
             <div class="col-md-10 col-md-offset-2">
                 <button [disabled]="!analysisContextForm.form.valid" class="btn btn-primary" type="submit">Save</button>
                 <button [disabled]="loading" (click)="cancel()" type="button" class="btn btn-default">Cancel</button>
             </div>
         </div>
+
     </div>
 </form>
