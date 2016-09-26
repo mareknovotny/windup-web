@@ -32,6 +32,8 @@ export class AnalysisContextFormComponent extends FormComponent
     packages:[{prefix:string}];
     excludePackages:[{prefix:string}];
 
+    selectedRulesets: RulesPath[] = [];
+
     private _migrationPathsObservable:Observable<MigrationPath[]>;
 
     constructor(private _router:Router,
