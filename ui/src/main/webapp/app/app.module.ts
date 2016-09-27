@@ -69,7 +69,7 @@ import {EditApplicationFormComponent} from "./components/edit-application-form.c
         RulesModalComponent,
         TechnologyComponent,
         FileSelectDirective,
-        FileDropDirective
+        FileDropDirective,
         CustomRuleSelectionComponent
     ],
     providers: [
