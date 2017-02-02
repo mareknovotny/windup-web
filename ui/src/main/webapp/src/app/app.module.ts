@@ -83,6 +83,8 @@ import {CustomSelectComponent} from "./components/custom-select/custom-select.co
 import {ReportFilterIndicatorComponent} from "./components/reports/filter/report-filter-indicator.component";
 import {ApplicationDetailsComponent} from "./components/reports/application-details/application-details.component";
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {ApplicationIndexComponent} from "./components/reports/application-index/application-index.component";
+import {AggregatedStatisticsService} from "./components/reports/application-index/aggregated-statistics.service";
 import {PackageChartComponent} from "./components/package-chart/package-chart.component";
 import {ApplicationDetailsService} from "./components/reports/application-details/application-details.service";
 import {TechnologyTagComponent} from "./components/reports/technology-tag/technology-tag.component";
@@ -105,6 +107,14 @@ import {MomentModule} from "angular2-moment";
 import {FileUploadModule, FileUploader} from "ng2-file-upload";
 import {WizardComponent} from "./components/wizard.component";
 import {DurationPipe} from "./components/duration.pipe";
+import {TabContainerComponent} from "./components/tabs/tab-container.component";
+import {TabComponent} from "./components/tabs/tab.component";
+import {LogViewComponent} from "./components/log-view.component";
+import {ExecutionDetailComponent} from "./components/executions/execution-detail.component";
+import {SortIndicatorComponent} from "./components/sort-indicator.component";
+import {SortableTableComponent} from "./components/sortable-table.component";
+import {StatusIconComponent} from "./components/status-icon.component";
+import {GraphJSONToModelService} from "./services/graph/graph-json-to-model.service";
 
 /**
  * Load all mapping data from the generated files.
@@ -147,6 +157,7 @@ initializeModelMappingData();
         DependenciesReportComponent,
         SourceReportComponent,
         ApplicationDetailsComponent,
+        ApplicationIndexComponent,
         PrettyPathPipe,
 
         // Report components
@@ -193,7 +204,14 @@ initializeModelMappingData();
         SortComponent,
         SearchComponent,
         WizardComponent,
-        DurationPipe
+        DurationPipe,
+        TabContainerComponent,
+        TabComponent,
+        LogViewComponent,
+        ExecutionDetailComponent,
+        SortIndicatorComponent,
+        SortableTableComponent,
+        StatusIconComponent
     ],
     providers: [
         appRoutingProviders,
@@ -246,7 +264,13 @@ initializeModelMappingData();
         {
             provide: FileUploader,
             useFactory: createFileUploader
-        }
+        },
+        {
+            provide: GraphJSONToModelService,
+            useFactory: createGraphJSONToModelService,
+            deps: [Http]
+        },
+        AggregatedStatisticsService
     ],
     bootstrap:    [ AppComponent ]
 })
@@ -269,6 +293,10 @@ export function breadcrumbsServiceFactory(backend: XHRBackend,
                                           defaultOptions: RequestOptions,
                                           keycloakService: KeycloakService) {
     return new WindupHttpService(backend, defaultOptions, keycloakService);
+}
+
+export function createGraphJSONToModelService(http: Http) {
+    return new GraphJSONToModelService(http, null);
 }
 
 export class WINDUP_WEB {
