@@ -27,8 +27,7 @@ import {forkJoin} from "rxjs/observable/forkJoin";
     templateUrl: './analysis-context-form.component.html'
 })
 export class AnalysisContextFormComponent extends FormComponent
-    implements OnInit, IsDirty
-{
+    implements OnInit, IsDirty {
     @ViewChild(NgForm)
     private analysisContextForm: NgForm;
 
@@ -45,6 +44,11 @@ export class AnalysisContextFormComponent extends FormComponent
      * See also: http://stackoverflow.com/questions/33346677/angular2-ngmodel-against-ngfor-variables
      */
     includePackages: Package[];
+
+    excludedPkgShow: boolean = false;
+    advancedOptionsShow: boolean = false;
+    customRulesetsShow: boolean = false;
+
     excludePackages: Package[];
     packageTree: Package[] = [];
 
@@ -71,7 +75,7 @@ export class AnalysisContextFormComponent extends FormComponent
                 private _windupExecutionService: WindupExecutionService,
                 private _notificationService: NotificationService,
                 private _registeredApplicationService: RegisteredApplicationService
-    ) {
+            ) {
         super();
         this.includePackages = [];
         this.excludePackages = [];
@@ -80,7 +84,7 @@ export class AnalysisContextFormComponent extends FormComponent
     }
 
     ngOnInit() {
-        this._configurationOptionsService.getAll().subscribe((options:ConfigurationOption[]) => {
+        this._configurationOptionsService.getAll().subscribe((options: ConfigurationOption[]) => {
             this.configurationOptions = options;
         });
 
@@ -98,7 +102,7 @@ export class AnalysisContextFormComponent extends FormComponent
                         .subscribe(context => {
                             this.analysisContext = context;
                             if (this.analysisContext.migrationPath == null)
-                                this.analysisContext.migrationPath = <MigrationPath>{id: 0};
+                                this.analysisContext.migrationPath = <MigrationPath>{ id: 0 };
                         });
                 }
 
@@ -122,7 +126,7 @@ export class AnalysisContextFormComponent extends FormComponent
     // Apps selection checkboxes
     static getDefaultAnalysisContext() {
         let analysisContext = <AnalysisContext>{};
-        analysisContext.migrationPath = <MigrationPath>{id: 0};
+        analysisContext.migrationPath = <MigrationPath>{ id: 0 };
         analysisContext.advancedOptions = [];
         analysisContext.includePackages = [];
         analysisContext.excludePackages = [];
@@ -141,9 +145,9 @@ export class AnalysisContextFormComponent extends FormComponent
         } else {
             // For the migration path, store the id only.
             if (analysisContext.migrationPath) {
-                analysisContext.migrationPath = <MigrationPath>{id: analysisContext.migrationPath.id};
+                analysisContext.migrationPath = <MigrationPath>{ id: analysisContext.migrationPath.id };
             } else {
-                analysisContext.migrationPath = <MigrationPath>{id: 0};
+                analysisContext.migrationPath = <MigrationPath>{ id: 0 };
             }
 
             if (analysisContext.rulesPaths == null)
@@ -221,6 +225,7 @@ export class AnalysisContextFormComponent extends FormComponent
         return this._migrationPathsObservable;
     }
 
+
     get dirty(): boolean {
         if (this._dirty != null) {
             return this._dirty;
@@ -286,10 +291,31 @@ export class AnalysisContextFormComponent extends FormComponent
         this._routeHistoryService.navigateBackOrToRoute(projectPageRoute);
     }
 
-    rulesPathsChanged(rulesPaths:RulesPath[]) {
+    rulesPathsChanged(rulesPaths: RulesPath[]) {
         this.analysisContext.rulesPaths = rulesPaths;
     }
 
+    toggleAdvOptions() {
+        if (this.advancedOptionsShow) {
+            this.advancedOptionsShow = false;
+        } else {
+            this.advancedOptionsShow = true;
+        }
+    }
+    toggleExclPkgOptions() {
+        if (this.excludedPkgShow) {
+            this.excludedPkgShow = false;
+        } else {
+            this.excludedPkgShow = true;
+        }
+    }
+    toggleCustomRulesetsOptions() {
+        if (this.customRulesetsShow) {
+            this.customRulesetsShow = false;
+        } else {
+            this.customRulesetsShow = true;
+        }
+    }
 }
 
 enum Action {
