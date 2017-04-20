@@ -87,6 +87,8 @@ private transformationPaths: MigrationPath[] = [
     isInWizard: boolean;
     action: Action;
 
+    static DEFAULT_MIGRATION_PATH: MigrationPath = <MigrationPath>{ id: 101 };
+
     constructor(private _router: Router,
                 private _activatedRoute: ActivatedRoute,
                 private _migrationProjectService: MigrationProjectService,
@@ -127,7 +129,7 @@ private transformationPaths: MigrationPath[] = [
                         .subscribe(context => {
                             this.analysisContext = context;
                             if (this.analysisContext.migrationPath == null)
-                                this.analysisContext.migrationPath = <MigrationPath>{ id: 0 };
+                                this.analysisContext.migrationPath = AnalysisContextFormComponent.DEFAULT_MIGRATION_PATH;
                         });
                 }
 
@@ -151,7 +153,7 @@ private transformationPaths: MigrationPath[] = [
     // Apps selection checkboxes
     static getDefaultAnalysisContext() {
         let analysisContext = <AnalysisContext>{};
-        analysisContext.migrationPath = <MigrationPath>{ id: 0 };
+        analysisContext.migrationPath = AnalysisContextFormComponent.DEFAULT_MIGRATION_PATH;
         analysisContext.advancedOptions = [];
         analysisContext.includePackages = [];
         analysisContext.excludePackages = [];
@@ -172,7 +174,7 @@ private transformationPaths: MigrationPath[] = [
             if (analysisContext.migrationPath) {
                 analysisContext.migrationPath = <MigrationPath>{ id: analysisContext.migrationPath.id };
             } else {
-                analysisContext.migrationPath = <MigrationPath>{ id: 0 };
+                analysisContext.migrationPath = AnalysisContextFormComponent.DEFAULT_MIGRATION_PATH;
             }
 
             if (analysisContext.rulesPaths == null)
