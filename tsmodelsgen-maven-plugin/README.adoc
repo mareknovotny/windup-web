@@ -1,4 +1,4 @@
-=  Windup Web TypeScript Models Generator Maven Plugin
+=  Windup Web TypeScript Models Generator Maven Plugin and
 
 == Overview
 
